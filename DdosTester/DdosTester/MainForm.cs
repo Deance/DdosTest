@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Net;
+using DdosTester.WorkClasses;
+using DdosTester.HelpClasses;
 
 namespace DdosTester
 {
@@ -30,7 +32,7 @@ namespace DdosTester
         private bool aContinue = false;
         private bool isRefreshBase = true;
         private static Thread thRefreshClientBase;
-        public static Settings objSets { get; set; }
+                
         public static ArrayList ClientBase { get; set; }
         public static long PacketCounter { get; set; }
         public MainForm()
@@ -169,15 +171,15 @@ namespace DdosTester
         */
         private void MakeSets()
         {
-            objSets = new Settings();
+            Attack.objSets = new Settings();
 
             //Check IP or ORL or nothing
             //Put IP Addresses into Setting object
                 
             if (Check.isIP(tb_Address.Text))
             {
-                objSets.IPs = new IPAddress[1];
-                objSets.IPs[0] = IPAddress.Parse(tb_Address.Text);
+                Attack.objSets.IPs = new IPAddress[1];
+                Attack.objSets.IPs[0] = IPAddress.Parse(tb_Address.Text);
             }
 
             else
@@ -186,7 +188,7 @@ namespace DdosTester
                 {
                     try
                     {
-                        objSets.IPs = Dns.GetHostAddresses(tb_Address.Text);
+                        Attack.objSets.IPs = Dns.GetHostAddresses(tb_Address.Text);
                     }
                     catch (Exception ex)
                     {
@@ -204,19 +206,19 @@ namespace DdosTester
 
             if (radbtn_TCPSYNFlood.Checked)
             {
-                objSets.Type = AttackType.TCP_SYN_Flood;
+                Attack.objSets.Type = AttackType.TCP_SYN_Flood;
             }
             if (radbtn_ICMPFlood.Checked)
             {
-                objSets.Type = AttackType.ICMP_Flood;
+                Attack.objSets.Type = AttackType.ICMP_Flood;
             }
             if (radbtn_TCPFlood.Checked)
             {
-                objSets.Type = AttackType.TCP_Flood;
+                Attack.objSets.Type = AttackType.TCP_Flood;
             }
             if (radbtn_DatabaseAttack.Checked)
             {
-                objSets.Type = AttackType.Database_Attack;
+                Attack.objSets.Type = AttackType.Database_Attack;
             }
 
 

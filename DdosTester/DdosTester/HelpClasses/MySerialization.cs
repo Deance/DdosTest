@@ -4,10 +4,9 @@ using System.IO;
 
 namespace DdosTester.HelpClasses
 {
-    class MySerialization // Special class to serialize/deserialize objects to send it by network. 
+    abstract class MySerialization // Special class to serialize/deserialize objects to send it by network. 
     {                     // Made for 'Settings' and 'Int32' objects.
-        MySerialization();
-
+        
         // Returns a byte[] for a network stream to send it to client;
         public static byte[] SettingsToBytes(Settings obj)
         {

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="HelpClasses\Check.cs" />
     <Compile Include="HelpClasses\Client.cs" />
+    <Compile Include="HelpClasses\MySerialization.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
