@@ -14,34 +14,30 @@ using DdosTester.WorkClasses;
 
 namespace DdosTester
 {
-    class Server
+    abstract class Server
     {
-        private TcpListener _tcpListener;
-        private Thread _newThread;
+        private static TcpListener _tcpListener;
+        private static Thread _newThread;
         public static int SentPacketsCounter = 0;
-        public int Port { get; set; }
-        public bool isRun { get; set; }
-        public Server(int port)
+        public static int Port = 1111;
+        public static bool isRun = false;
+        
+        public static void Run()
         {
-            Port = port;
-            isRun = false;
-        }
-        public void Run()
-        {
-            
-            _newThread = new Thread(this.Listen);
+            isRun = true;
+            _newThread = new Thread(Listen);
             _newThread.Start();
         }
-        public void Stop()
+        public static void Stop()
         {
             isRun = false;
         }
-        private void Listen()
+        private static void Listen()
         {
             try
             {
                 // Make the listening socket
-                _tcpListener = new TcpListener(IPAddress.Any, this.Port);
+                _tcpListener = new TcpListener(IPAddress.Any, Port);
                 _tcpListener.Start();
                 isRun = true;
                 
@@ -50,7 +46,6 @@ namespace DdosTester
                 {
                     //Put an AcceptClient into "HandleNewClient" func and stand in Thread Pool queue 
                     ThreadPool.QueueUserWorkItem(new WaitCallback(HandleNewClient), _tcpListener.AcceptTcpClient());
-                    
                 }             
 
             }
@@ -61,7 +56,7 @@ namespace DdosTester
             
         }
 
-        private void HandleNewClient(object client)
+        private static void HandleNewClient(object client)
         {
             try
             {
@@ -94,6 +89,7 @@ namespace DdosTester
                             stream.Read(buf, 0, buf.Length);
                             stream.Close();
                             SentPacketsCounter += MySerialization.BytesToInt32(buf);
+                            newClient.Status = ClientStatus.Online;
                         }
                         catch
                         {
@@ -110,17 +106,5 @@ namespace DdosTester
             }
         }
         
-
-
-
-         // Server stopping
-         ~Server()
-         {
-             if (_tcpListener != null)
-             {
-                 isRun = false;       
-                 _tcpListener.Stop();
-             }
-         }
     }
 }

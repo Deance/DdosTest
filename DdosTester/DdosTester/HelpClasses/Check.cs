@@ -5,7 +5,7 @@ using System.Net;
 
 namespace DdosTester
 {
-    class Check
+    abstract class Check
     {
         public static bool isIP(string CheckString) 
         {

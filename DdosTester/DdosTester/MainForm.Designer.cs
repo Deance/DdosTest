@@ -16,7 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
-                objServer.isRun = false;
+                Server.Stop();
                 isRefreshBase = false;
             }
             base.Dispose(disposing);
@@ -144,7 +144,7 @@
             this.dgv_ClientBase.RowTemplate.Height = 24;
             this.dgv_ClientBase.Size = new System.Drawing.Size(443, 194);
             this.dgv_ClientBase.TabIndex = 11;
-            this.dgv_ClientBase.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GetClientBase);
+            //this.dgv_ClientBase.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GetClientBase);
             // 
             // Client_IP
             // 
@@ -185,6 +185,7 @@
             this.btn_Clear.TabIndex = 14;
             this.btn_Clear.Text = "Clear";
             this.btn_Clear.UseVisualStyleBackColor = true;
+            this.btn_Clear.Click += new System.EventHandler(this.btn_Clear_Click);
             // 
             // MainForm
             // 
@@ -202,7 +203,6 @@
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.grbox_Attacks.ResumeLayout(false);
             this.grbox_Attacks.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ClientBase)).EndInit();
