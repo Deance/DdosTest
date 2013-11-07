@@ -25,10 +25,12 @@ namespace DdosTester
     public partial class MainForm : Form
     {
         private AttackType Type;
-        private Settings objSets;
+        
         private Server objServer;
         private bool aContinue = false;
         private bool isRefreshBase = true;
+        private static Thread thRefreshClientBase;
+        public static Settings objSets { get; set; }
         public static ArrayList ClientBase { get; set; }
         public static long PacketCounter { get; set; }
         public MainForm()
@@ -45,8 +47,8 @@ namespace DdosTester
 
             objServer = new Server(1111);
             objServer.Run();
-
-            Thread thRefreshClientBase = new Thread(RefreshDgvClientBase);
+            //ThreadPool.QueueUserWorkItem(new WaitCallback(new delegate{RefreshDgvClientBase}));
+            thRefreshClientBase = new Thread(RefreshDgvClientBase);
             thRefreshClientBase.IsBackground = true;
             thRefreshClientBase.Priority = ThreadPriority.Lowest;
             thRefreshClientBase.Start();
@@ -221,7 +223,7 @@ namespace DdosTester
         }
 
         private void RefreshDgvClientBase()
-        // Refreshes the DataGridView every 0.5 second
+        // Refreshes the DataGridView every 0.8 second
         {
             while (isRefreshBase)
             {
@@ -233,8 +235,9 @@ namespace DdosTester
                         for (i = 0; i < ClientBase.Count; i++ )
                         {
                             dgv_ClientBase[0, i].Value = ((Client)ClientBase[i]).IP.ToString();
+                            dgv_ClientBase[1, i].Value = ((Client)ClientBase[i]).Status.ToString();
                         }
-                        Thread.Sleep(500);
+                        Thread.Sleep(800);
                     }
                 }
                 catch(Exception ex)
@@ -242,6 +245,17 @@ namespace DdosTester
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        void MainForm_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        {
+            objServer.isRun = false;
+            isRefreshBase = false;
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
     }

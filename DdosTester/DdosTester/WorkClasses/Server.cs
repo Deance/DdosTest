@@ -48,10 +48,11 @@ namespace DdosTester
                         //Put an AcceptClient into "HandleNewClient" func and stand in Thread Pool queue 
                         ThreadPool.QueueUserWorkItem(new WaitCallback(HandleNewClient), _tcpListener.AcceptTcpClient());
                         
-                        if (_tcpListener.AcceptTcpClient() != null)
+                        if (_tcpListener.AcceptTcpClient().Connected)
                         {
                             _tcpListener.AcceptTcpClient().Close();
                         }
+                        
                     }
                 }
             }
@@ -59,6 +60,7 @@ namespace DdosTester
             {
                 MessageBox.Show(ex.Message);
             }
+            
         }
 
         private void HandleNewClient(object client)
@@ -79,7 +81,6 @@ namespace DdosTester
             if (!isContained) // Add new client to client base
             {
                 MainForm.ClientBase.Add(newClient);
-
             }
             else 
             {
@@ -91,6 +92,7 @@ namespace DdosTester
                     stream.Read(buf, 0, buf.Length);
                 }
             }
+            
             connectedClient.Close();
             
         }
@@ -103,7 +105,7 @@ namespace DdosTester
          {
              if (_tcpListener != null)
              {
-                 
+                 isRun = false;       
                  _tcpListener.Stop();
              }
          }
