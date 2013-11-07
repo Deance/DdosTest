@@ -41,6 +41,9 @@
             this.dgv_ClientBase = new System.Windows.Forms.DataGridView();
             this.Client_IP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Client_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lbl_NumOfPackets = new System.Windows.Forms.Label();
+            this.lbl_Counter = new System.Windows.Forms.Label();
+            this.btn_Clear = new System.Windows.Forms.Button();
             this.grbox_Attacks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ClientBase)).BeginInit();
             this.SuspendLayout();
@@ -156,11 +159,41 @@
             this.Client_Status.Name = "Client_Status";
             this.Client_Status.ReadOnly = true;
             // 
+            // lbl_NumOfPackets
+            // 
+            this.lbl_NumOfPackets.AutoSize = true;
+            this.lbl_NumOfPackets.Location = new System.Drawing.Point(409, 129);
+            this.lbl_NumOfPackets.Name = "lbl_NumOfPackets";
+            this.lbl_NumOfPackets.Size = new System.Drawing.Size(194, 17);
+            this.lbl_NumOfPackets.TabIndex = 12;
+            this.lbl_NumOfPackets.Text = "Number of  packets/requests:";
+            // 
+            // lbl_Counter
+            // 
+            this.lbl_Counter.AutoSize = true;
+            this.lbl_Counter.Location = new System.Drawing.Point(601, 129);
+            this.lbl_Counter.Name = "lbl_Counter";
+            this.lbl_Counter.Size = new System.Drawing.Size(16, 17);
+            this.lbl_Counter.TabIndex = 13;
+            this.lbl_Counter.Text = "0";
+            // 
+            // btn_Clear
+            // 
+            this.btn_Clear.Location = new System.Drawing.Point(767, 125);
+            this.btn_Clear.Name = "btn_Clear";
+            this.btn_Clear.Size = new System.Drawing.Size(75, 23);
+            this.btn_Clear.TabIndex = 14;
+            this.btn_Clear.Text = "Clear";
+            this.btn_Clear.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(865, 375);
+            this.Controls.Add(this.btn_Clear);
+            this.Controls.Add(this.lbl_Counter);
+            this.Controls.Add(this.lbl_NumOfPackets);
             this.Controls.Add(this.dgv_ClientBase);
             this.Controls.Add(this.btn_Start);
             this.Controls.Add(this.grbox_Attacks);
@@ -168,15 +201,14 @@
             this.Controls.Add(this.tb_Address);
             this.Name = "MainForm";
             this.Text = "MainForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(MainForm_FormClosing);
             this.grbox_Attacks.ResumeLayout(false);
             this.grbox_Attacks.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ClientBase)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
-            
         }
 
         
@@ -194,6 +226,9 @@
         private System.Windows.Forms.DataGridView dgv_ClientBase;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client_IP;
         private System.Windows.Forms.DataGridViewTextBoxColumn Client_Status;
+        private System.Windows.Forms.Label lbl_NumOfPackets;
+        private System.Windows.Forms.Label lbl_Counter;
+        private System.Windows.Forms.Button btn_Clear;
 
     }
 }

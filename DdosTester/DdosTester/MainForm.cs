@@ -19,8 +19,6 @@ namespace DdosTester
     
     public partial class MainForm : Form
     {
-        private AttackType Type;
-        
         private Server objServer;
         private bool aContinue = false;
         private bool isRefreshBase = true;
