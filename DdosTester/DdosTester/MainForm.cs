@@ -15,14 +15,7 @@ using DdosTester.HelpClasses;
 
 namespace DdosTester
 {
-    public enum AttackType
-    {
-        TCP_SYN_Flood = 1,
-        ICMP_Flood = 2,
-        TCP_Flood = 3,
-        Database_Attack = 4
-    };
-    
+     
     
     public partial class MainForm : Form
     {
@@ -40,6 +33,7 @@ namespace DdosTester
             InitializeComponent();
             ClientBase = new ArrayList();
             PacketCounter = 0;
+            radbtn_TCPSYNFlood.Checked = true;
 
             int MaxThreadsCount = Environment.ProcessorCount * 8;
             // Max quantity of working threads

@@ -7,6 +7,13 @@ using System.IO;
 
 namespace DdosTester
 {
+    public enum AttackType
+    {
+        TCP_SYN_Flood = 1,
+        ICMP_Flood = 2,
+        TCP_Flood = 3,
+        Database_Attack = 4
+    };
     class Settings
     {
         private IPAddress[] _IPs;

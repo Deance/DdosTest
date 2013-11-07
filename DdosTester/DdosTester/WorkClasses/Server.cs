@@ -43,18 +43,11 @@ namespace DdosTester
                 //Handle the listening socket
                 while (isRun)
                 {
-                    if (_tcpListener.AcceptTcpClient() != null)
-                    {
-                        //Put an AcceptClient into "HandleNewClient" func and stand in Thread Pool queue 
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(HandleNewClient), _tcpListener.AcceptTcpClient());
-                        
-                        if (_tcpListener.AcceptTcpClient().Connected)
-                        {
-                            _tcpListener.AcceptTcpClient().Close();
-                        }
-                        
-                    }
-                }
+                    //Put an AcceptClient into "HandleNewClient" func and stand in Thread Pool queue 
+                    ThreadPool.QueueUserWorkItem(new WaitCallback(HandleNewClient), _tcpListener.AcceptTcpClient());
+                    
+                }             
+
             }
             catch(Exception ex)
             {
@@ -90,9 +83,11 @@ namespace DdosTester
                     NetworkStream stream = connectedClient.GetStream();
                     byte[] buf = new byte[stream.Length];
                     stream.Read(buf, 0, buf.Length);
+                    stream.Close();
                 }
             }
-            
+
+            connectedClient.GetStream().Close();
             connectedClient.Close();
             
         }
