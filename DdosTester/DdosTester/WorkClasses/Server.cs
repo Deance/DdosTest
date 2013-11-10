@@ -19,7 +19,7 @@ namespace DdosTester
         private static TcpListener _tcpListener;
         private static Thread _newThread;
         public static int SentPacketsCounter = 0;
-        public static int Port = 1111;
+        public static int Port = 8080;
         public static bool isRun = false;
         
         public static void Run()

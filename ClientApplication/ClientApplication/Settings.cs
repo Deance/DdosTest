@@ -14,7 +14,7 @@ namespace ClientAttackerNamespace
         TCP_Flood = 3,
         Database_Attack = 4
     };
-    class Settings
+    [Serializable] class Settings
     {
         private IPAddress[] _IPs;
         private AttackType _Type;

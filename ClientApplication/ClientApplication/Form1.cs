@@ -48,9 +48,9 @@ namespace ClientApplication
                 textBox2.Text = "Ожидание подключения к серверу";
             }
         }
-        private void UpdateTextBoxes()
+        public  void UpdateTextBoxes()
         {
-            while (!ClientAttacker.isConnected)
+            while ((!ClientAttacker.isConnected) && (ClientAttacker._attackSettings.Type != null))
             {
                 if (ClientAttacker.isConnected)
                 {

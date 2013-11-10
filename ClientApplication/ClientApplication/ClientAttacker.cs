@@ -14,7 +14,7 @@ namespace ClientAttackerNamespace
     class ClientAttacker
     {
         private static TcpClient _tcpClient;
-        public static int Port = 1111;
+        public static int Port = 8080;
         public static int PortSettings = 1112;
         public static int SentPacketsCounter = 0;
         public static bool isConnected = false;
@@ -33,13 +33,16 @@ namespace ClientAttackerNamespace
 
         public static void Connect(Object IP)
         {
+            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
                 IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse((string)IP), Port);
                 _tcpClient = new TcpClient();
                 _tcpClient.Connect(ipEndPoint);
+                //s.Connect(ipEndPoint);
                 isConnected = true;
                 ReсeiveSettings();
+                
                 
             }
             catch (Exception e)
