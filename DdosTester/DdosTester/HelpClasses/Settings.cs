@@ -7,6 +7,7 @@ using System.IO;
 
 namespace DdosTester
 {
+    [Serializable]
     public enum AttackType
     {
         TCP_SYN_Flood = 1,
